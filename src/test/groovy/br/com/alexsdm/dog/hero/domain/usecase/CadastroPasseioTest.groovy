@@ -1,7 +1,8 @@
 package br.com.alexsdm.dog.hero.domain.usecase
 
 import br.com.alexsdm.dog.hero.domain.entity.Duracao
-import br.com.alexsdm.dog.hero.dto.CadastroPasseioInputDTO
+import br.com.alexsdm.dog.hero.domain.repository.PasseioRepository
+import br.com.alexsdm.dog.hero.dto.in.CadastroPasseioInputDTO
 import spock.lang.Specification
 
 import java.time.LocalDateTime

@@ -1,4 +1,4 @@
-package br.com.alexsdm.dog.hero.adapter.database.configuration;
+package br.com.alexsdm.dog.hero.adapter.out.database.configuration;
 
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;

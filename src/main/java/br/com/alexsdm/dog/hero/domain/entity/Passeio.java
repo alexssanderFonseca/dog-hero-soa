@@ -15,6 +15,7 @@ public class Passeio {
     private final List<String> pets;
     private final Horario horario;
     private BigDecimal preco;
+    private Cuidador cuidador;
 
     public Passeio(LocalDateTime dataAgendamento, Duracao duracao, Local local,
                    List<String> pets) {
@@ -38,5 +39,9 @@ public class Passeio {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public void setCuidador(Cuidador cuidador) {
+        this.cuidador = cuidador;
     }
 }

@@ -1,10 +1,9 @@
-package br.com.alexsdm.dog.hero.adapter.database.repository;
+package br.com.alexsdm.dog.hero.adapter.out.database.repository;
 
-import br.com.alexsdm.dog.hero.adapter.database.datamodel.mapper.PasseioItemMapper;
+import br.com.alexsdm.dog.hero.adapter.out.database.datamodel.mapper.PasseioItemMapper;
 import br.com.alexsdm.dog.hero.domain.entity.Passeio;
-import br.com.alexsdm.dog.hero.domain.usecase.PasseioRepository;
+import br.com.alexsdm.dog.hero.domain.repository.PasseioRepository;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Repository;
 public class PasseioRepositoryDynamoImpl implements PasseioRepository {
 
     private final DynamoDBMapper dynamoDBMapper;
-    private final ObjectMapper objectMapper;
     private final PasseioItemMapper passeioItemMapper;
 
     @Override

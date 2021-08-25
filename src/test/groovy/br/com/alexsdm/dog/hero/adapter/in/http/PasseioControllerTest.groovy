@@ -1,4 +1,4 @@
-package br.com.alexsdm.dog.hero.adapter.http
+package br.com.alexsdm.dog.hero.adapter.in.http
 
 import br.com.alexsdm.dog.hero.domain.usecase.CadastroPasseio
 import org.spockframework.spring.SpringBean

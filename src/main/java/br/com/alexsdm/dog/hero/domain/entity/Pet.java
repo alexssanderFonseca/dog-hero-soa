@@ -8,5 +8,5 @@ import lombok.Getter;
 public class Pet {
     private final String id;
     private final String nome;
-    private final Dono dono;
+    private final DonoPet donoPet;
 }

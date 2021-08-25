@@ -1,6 +1,6 @@
-package br.com.alexsdm.dog.hero.adapter.database.datamodel.mapper;
+package br.com.alexsdm.dog.hero.adapter.out.database.datamodel.mapper;
 
-import br.com.alexsdm.dog.hero.adapter.database.datamodel.PasseioItem;
+import br.com.alexsdm.dog.hero.adapter.out.database.datamodel.PasseioItem;
 import br.com.alexsdm.dog.hero.domain.entity.Local;
 import br.com.alexsdm.dog.hero.domain.entity.Passeio;
 import com.fasterxml.jackson.core.JsonProcessingException;

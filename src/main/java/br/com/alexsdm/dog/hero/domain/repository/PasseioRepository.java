@@ -1,4 +1,4 @@
-package br.com.alexsdm.dog.hero.domain.usecase;
+package br.com.alexsdm.dog.hero.domain.repository;
 
 import br.com.alexsdm.dog.hero.domain.entity.Passeio;
 

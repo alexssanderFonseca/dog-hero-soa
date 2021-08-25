@@ -1,7 +1,7 @@
-package br.com.alexsdm.dog.hero.adapter.http;
+package br.com.alexsdm.dog.hero.adapter.in.http;
 
 import br.com.alexsdm.dog.hero.domain.usecase.CadastroPasseio;
-import br.com.alexsdm.dog.hero.dto.CadastroPasseioInputDTO;
+import br.com.alexsdm.dog.hero.dto.in.CadastroPasseioInputDTO;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package br.com.alexsdm.dog.hero.dto;
+package br.com.alexsdm.dog.hero.dto.in;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;

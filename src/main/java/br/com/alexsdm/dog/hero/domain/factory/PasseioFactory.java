@@ -3,7 +3,7 @@ package br.com.alexsdm.dog.hero.domain.factory;
 import br.com.alexsdm.dog.hero.domain.entity.Duracao;
 import br.com.alexsdm.dog.hero.domain.entity.Local;
 import br.com.alexsdm.dog.hero.domain.entity.Passeio;
-import br.com.alexsdm.dog.hero.dto.CadastroPasseioInputDTO;
+import br.com.alexsdm.dog.hero.dto.in.CadastroPasseioInputDTO;
 
 public class PasseioFactory {
 

@@ -1,4 +1,4 @@
-package br.com.alexsdm.dog.hero.adapter.database.datamodel;
+package br.com.alexsdm.dog.hero.adapter.out.database.datamodel;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;

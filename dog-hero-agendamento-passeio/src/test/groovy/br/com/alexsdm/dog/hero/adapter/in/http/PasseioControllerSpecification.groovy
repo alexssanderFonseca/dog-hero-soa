@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @WebMvcTest
-class PasseioControllerTest extends Specification {
+class PasseioControllerSpecification extends Specification {
 
     @Autowired
     private MockMvc mvc;

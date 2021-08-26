@@ -8,7 +8,7 @@ import spock.lang.Specification
 
 import java.time.LocalDateTime
 
-class CadastroPasseioTest extends Specification {
+class CadastroPasseioSpecification extends Specification {
 
     PasseioRepository passeioRepository = Mock(PasseioRepository);
     PasseioCriadoEvent passeioCriadoEvent = Mock(PasseioCriadoEvent);

@@ -32,25 +32,6 @@ public class Passeio {
         this.preco = calcularPrecoDoPasseio();
     }
 
-    public void cancelar() {
-        if (this.status != Status.INICIADO && this.status != Status.FINALIZADO) {
-            throw new BusinessException("O passeio não pode ser cancelado após ser iniciado ou finalizado");
-        }
-        if (!isPrazoParaCancelamentoValido()) {
-            throw new BusinessException("O passeio não pode ser cancelado após o prazo de antecedência");
-        }
-        this.status = Status.CANCELADO;
-    }
-
-    private boolean isPrazoParaCancelamentoValido() {
-        var agora = LocalDateTime.now();
-        if (agora.isAfter(this.dataAgendamento)) {
-            return false;
-        }
-        var diferencaEntreAgoraDataAtual = Duration.between(agora, this.dataAgendamento).toHours();
-        return diferencaEntreAgoraDataAtual <= PRAZO_LIMITE_CANCELAMENTO;
-    }
-
     private BigDecimal calcularPrecoDoPasseio() {
         return this.duracao.getValorBase().add(getValorAdicionalPorDogExtra());
     }
@@ -60,6 +41,23 @@ public class Passeio {
         return this.duracao.getValorAdicionalPorDogExtra().multiply(BigDecimal.valueOf(qtdPetsExtras));
     }
 
+    public void cancelar(LocalDateTime horarioCancelamento) {
+        if (this.status == Status.INICIADO || this.status == Status.FINALIZADO) {
+            throw new BusinessException("O passeio não pode ser cancelado após ser iniciado ou finalizado");
+        }
+        if (isTempoLimiteParaCancelamentoAtingido(horarioCancelamento)) {
+            throw new BusinessException("O passeio não pode ser cancelado após o prazo de antecedência");
+        }
+        this.status = Status.CANCELADO;
+    }
+
+    private boolean isTempoLimiteParaCancelamentoAtingido(LocalDateTime horarioCancelamento) {
+        if (horarioCancelamento.isAfter(this.dataAgendamento)) {
+            return true;
+        }
+        var diferencaEntreDataAgendadaECancelamento = Duration.between(horarioCancelamento, this.dataAgendamento).toHours();
+        return diferencaEntreDataAgendadaECancelamento < PRAZO_LIMITE_CANCELAMENTO;
+    }
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;

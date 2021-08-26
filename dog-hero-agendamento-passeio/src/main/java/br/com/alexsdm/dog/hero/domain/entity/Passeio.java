@@ -36,7 +36,7 @@ public class Passeio {
         if (this.status != Status.INICIADO && this.status != Status.FINALIZADO) {
             throw new BusinessException("O passeio não pode ser cancelado após ser iniciado ou finalizado");
         }
-        if (isPrazoParaCancelamentoValido()) {
+        if (!isPrazoParaCancelamentoValido()) {
             throw new BusinessException("O passeio não pode ser cancelado após o prazo de antecedência");
         }
         this.status = Status.CANCELADO;

@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-    AGENDADA,
-    INICIADA,
-    FINALIZADA;
+    AGENDADO,
+    INICIADO,
+    CANCELADO,
+    FINALIZADO;
 }

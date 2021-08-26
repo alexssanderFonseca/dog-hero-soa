@@ -13,7 +13,7 @@ public class PasseioCriadoDTO {
 
     private LocalDateTime dataAgendamento;
 
-    private String latidude;
+    private String latitude;
 
     private String longitude;
 

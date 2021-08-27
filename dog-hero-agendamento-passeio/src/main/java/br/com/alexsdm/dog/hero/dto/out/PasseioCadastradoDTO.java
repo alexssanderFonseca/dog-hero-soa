@@ -9,7 +9,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PasseioCriadoDTO {
+public class PasseioCadastradoDTO {
+
+    private String id;
 
     private LocalDateTime dataAgendamento;
 

@@ -1,17 +1,17 @@
 package br.com.alexsdm.dog.hero.domain.mapper;
 
 import br.com.alexsdm.dog.hero.domain.entity.Passeio;
-import br.com.alexsdm.dog.hero.dto.out.PasseioCriadoDTO;
+import br.com.alexsdm.dog.hero.dto.out.PasseioCadastradoDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface PasseioCriadoMapper {
+public interface PasseioMapper {
 
-    PasseioCriadoMapper INSTANCIA = Mappers.getMapper(PasseioCriadoMapper.class);
+    PasseioMapper INSTANCIA = Mappers.getMapper(PasseioMapper.class);
 
     @Mapping(source = "passeio.local.latitude", target = "latitude")
     @Mapping(source = "passeio.local.longitude", target = "longitude")
-    PasseioCriadoDTO dePasseio(Passeio passeio);
+    PasseioCadastradoDTO paraPasseioCadastrado(Passeio passeio);
 }

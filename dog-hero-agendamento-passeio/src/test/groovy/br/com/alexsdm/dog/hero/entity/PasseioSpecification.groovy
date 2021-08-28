@@ -5,10 +5,13 @@ import br.com.alexsdm.dog.hero.domain.entity.Local
 import br.com.alexsdm.dog.hero.domain.entity.Passeio
 import br.com.alexsdm.dog.hero.domain.entity.Status
 import br.com.alexsdm.dog.hero.domain.exception.BusinessException
+import  static br.com.alexsdm.dog.hero.factory.PasseioMockFactory.cria
 import spock.lang.Specification
 
 import java.time.LocalDateTime
 import java.time.Month
+
+
 
 class PasseioSpecification extends Specification {
 
@@ -18,7 +21,7 @@ class PasseioSpecification extends Specification {
         pets.add("pet1")
         def duracaopasseio = Duracao.TRINTA
         when:
-        def dogpasseio = criaPasseio(pets, duracaopasseio);
+        def dogpasseio = cria(pets, duracaopasseio);
         then:
         dogpasseio.getPreco() == 25.00
     }
@@ -30,7 +33,7 @@ class PasseioSpecification extends Specification {
         pets.add("pet2")
         def duracaoPasseio = Duracao.TRINTA
         when:
-        def dogPasseio = criaPasseio(pets, duracaoPasseio);
+        def dogPasseio = cria(pets, duracaoPasseio);
         then:
         dogPasseio.getPreco() == 40.00
     }
@@ -41,7 +44,7 @@ class PasseioSpecification extends Specification {
         pets.add("pet1")
         def duracaoPasseio = Duracao.SESSENTA
         when:
-        def dogpasseio = criaPasseio(pets, duracaoPasseio);
+        def dogpasseio = cria(pets, duracaoPasseio);
         then:
         dogpasseio.getPreco() == 35.00
     }
@@ -54,7 +57,7 @@ class PasseioSpecification extends Specification {
         pets.add("pet3")
         def duracaoPasseio = Duracao.SESSENTA
         when:
-        def dogpasseio = criaPasseio(pets, duracaoPasseio);
+        def dogpasseio = cria(pets, duracaoPasseio);
         then:
         dogpasseio.getPreco() == 75.00
     }
@@ -89,8 +92,6 @@ class PasseioSpecification extends Specification {
         erro.getMessage() == "O passeio não pode ser cancelado após o prazo de antecedência";
     }
 
-    private Passeio criaPasseio(List<String> petsId, Duracao duracao) {
-        return new Passeio(LocalDateTime.now(), duracao, new Local("", ""), petsId);
-    }
+
 
 }

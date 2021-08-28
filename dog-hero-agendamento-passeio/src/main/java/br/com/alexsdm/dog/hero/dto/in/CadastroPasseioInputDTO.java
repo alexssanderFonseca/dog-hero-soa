@@ -23,6 +23,8 @@ public class CadastroPasseioInputDTO {
             (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataAgendamento;
 
+    private String criadorId;
+
     @NotBlank
     private String latidude;
 
@@ -34,6 +36,7 @@ public class CadastroPasseioInputDTO {
 
     @NotNull
     private List<String> pets;
+
 
 }
 

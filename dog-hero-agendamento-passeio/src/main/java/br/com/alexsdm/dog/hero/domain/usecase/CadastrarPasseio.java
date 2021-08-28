@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CadastroPasseio {
+public class CadastrarPasseio {
 
     private final PasseioRepository passeioRepository;
     private final PasseioCriadoEvent passeioCriadoEvent;

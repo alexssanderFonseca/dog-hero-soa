@@ -8,7 +8,7 @@ import spock.lang.Specification
 
 import java.time.LocalDateTime
 
-class CadastroPasseioSpecification extends Specification {
+class CadastrarPasseioSpecification extends Specification {
 
     PasseioRepository passeioRepository = Mock(PasseioRepository);
     PasseioCriadoEvent passeioCriadoEvent = Mock(PasseioCriadoEvent);
@@ -27,7 +27,7 @@ class CadastroPasseioSpecification extends Specification {
                 .longitude("1234")
                 .pets(pets)
                 .build();
-        def cadastrarPasseio = new CadastroPasseio(passeioRepository, passeioCriadoEvent);
+        def cadastrarPasseio = new CadastrarPasseio(passeioRepository, passeioCriadoEvent);
         when:
         cadastrarPasseio.executar(cadastroPasseioInputDTO);
         then:

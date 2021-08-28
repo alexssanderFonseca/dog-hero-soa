@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CancelamentoPasseio {
+public class CancelarPasseio {
 
     private final PasseioRepository passeioRepository;
 

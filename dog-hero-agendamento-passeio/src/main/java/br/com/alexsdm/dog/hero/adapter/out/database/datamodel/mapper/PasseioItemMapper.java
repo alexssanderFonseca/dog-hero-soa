@@ -9,12 +9,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.List;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface PasseioItemMapper {
 
     PasseioItem dePasseio(Passeio passeio);
 
+    @Mapping(source = "idPasseio", target = "dono")
     Passeio paraPasseio(PasseioItem passeioItem);
 
     default String paraLocalJson(Local local) throws JsonProcessingException {

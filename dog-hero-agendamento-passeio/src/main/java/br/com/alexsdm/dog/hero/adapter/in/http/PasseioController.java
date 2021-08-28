@@ -1,8 +1,8 @@
 package br.com.alexsdm.dog.hero.adapter.in.http;
 
-import br.com.alexsdm.dog.hero.domain.usecase.CadastroPasseio;
-import br.com.alexsdm.dog.hero.domain.usecase.CancelamentoPasseio;
-import br.com.alexsdm.dog.hero.domain.usecase.EncontrarPasseio;
+import br.com.alexsdm.dog.hero.domain.usecase.CadastrarPasseio;
+import br.com.alexsdm.dog.hero.domain.usecase.CancelarPasseio;
+import br.com.alexsdm.dog.hero.domain.usecase.VisualizarPasseio;
 import br.com.alexsdm.dog.hero.dto.in.CadastroPasseioInputDTO;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,25 +21,26 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class PasseioController {
 
-    private final CadastroPasseio cadastroPasseio;
-    private final CancelamentoPasseio cancelamentoPasseio;
-    private final EncontrarPasseio encontrarPasseio;
+    private final CadastrarPasseio cadastraPasseio;
+    private final CancelarPasseio cancelaPasseio;
+    private final VisualizarPasseio visualizaPasseio;
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroPasseioInputDTO cadastroPasseioInputDTO, UriComponentsBuilder uriBuilder) {
-        var cadastroPasseioOutputDTO = this.cadastroPasseio.executar(cadastroPasseioInputDTO);
+        var cadastroPasseioOutputDTO = this.cadastraPasseio.executar(cadastroPasseioInputDTO);
         var uri = uriBuilder.path("/{id}").buildAndExpand(cadastroPasseioOutputDTO.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PatchMapping("/{id}/cancelar")
     public ResponseEntity<?> cancelar(@PathVariable String id) {
-        this.cancelamentoPasseio.executar(id);
+        this.cancelaPasseio.executar(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
-        return ResponseEntity.noContent().build();
+        var passeioDTO = visualizaPasseio.executar(id);
+        return ResponseEntity.ok(passeioDTO);
     }
 }

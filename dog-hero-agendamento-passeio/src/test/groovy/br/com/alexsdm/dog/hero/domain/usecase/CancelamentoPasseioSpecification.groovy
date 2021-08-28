@@ -14,7 +14,7 @@ class CancelamentoPasseioSpecification extends Specification {
     def "Deve cancelar passeio"() {
         given:
         def idPasseio = UUID.randomUUID().toString();
-        def cancelamentoPasseio = new CancelamentoPasseio(passeioRepository);
+        def cancelamentoPasseio = new CancelarPasseio(passeioRepository);
         when:
         cancelamentoPasseio.executar(idPasseio);
         then:
@@ -25,7 +25,7 @@ class CancelamentoPasseioSpecification extends Specification {
     def "Deve falhar caso nao encontre o passeio"() {
         given:
         def idPasseio = UUID.randomUUID().toString();
-        def cancelamentoPasseio = new CancelamentoPasseio(passeioRepository);
+        def cancelamentoPasseio = new CancelarPasseio(passeioRepository);
         when:
         passeioRepository.buscarPeloId(idPasseio) >> Optional.empty();
         cancelamentoPasseio.executar(idPasseio);

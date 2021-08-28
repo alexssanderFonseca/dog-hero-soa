@@ -10,6 +10,8 @@ import lombok.Getter;
 @Getter
 public class Passeio {
 
+    private String id;
+    private String criadorId;
     private Status status;
     private final LocalDateTime dataAgendamento;
     private final Duracao duracao;

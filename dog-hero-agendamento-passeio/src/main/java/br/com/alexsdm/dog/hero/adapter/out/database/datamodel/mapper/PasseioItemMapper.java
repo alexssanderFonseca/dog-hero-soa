@@ -6,37 +6,40 @@ import br.com.alexsdm.dog.hero.domain.entity.Passeio;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import lombok.NoArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
-public interface PasseioItemMapper {
+@NoArgsConstructor
+public abstract class PasseioItemMapper {
 
-    PasseioItem dePasseio(Passeio passeio);
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    @Mapping(source = "idPasseio", target = "dono")
-    Passeio paraPasseio(PasseioItem passeioItem);
+    @Mapping(source = "id", target = "idPasseio")
+    public abstract PasseioItem dePasseio(Passeio passeio);
 
-    default String paraLocalJson(Local local) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    @Mapping(source = "idPasseio", target = "id")
+    public abstract Passeio paraPasseio(PasseioItem passeioItem);
+
+    public String paraLocalJson(Local local) throws JsonProcessingException {
         return objectMapper.writeValueAsString(local);
     }
 
-    default Local deLocalJson(String local) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        var mapLocal = objectMapper.convertValue(local, HashMap.class);
+    public Local deLocalJson(String local) throws JsonProcessingException {
+        var mapLocal = objectMapper.readValue(local, Map.class);
         return new Local(mapLocal.get("latitude").toString(), mapLocal.get("longitude").toString());
     }
 
-    default String paraPetsIdJson(List<String> pets) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public String paraPetsIdJson(List<String> pets) throws JsonProcessingException {
         return objectMapper.writeValueAsString(pets);
     }
 
-    default List<String> dePetsIdJson(String pets) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public List<String> dePetsIdJson(String pets) {
         return objectMapper.convertValue(pets, new TypeReference<>() {
         });
     }

@@ -24,14 +24,22 @@ public class Passeio {
     private static final int PRAZO_LIMITE_CANCELAMENTO = 5;
 
     public Passeio(LocalDateTime dataAgendamento, Duracao duracao, Local local,
-                   List<String> pets) {
+                   List<String> pets, String criadorId) {
         this.status = Status.AGENDADO;
+        if (!isDataCadastroValida(dataAgendamento)) {
+            throw new BusinessException("Passeio não pode ser cadastrado com uma data no passado");
+        }
         this.dataAgendamento = dataAgendamento;
         this.duracao = duracao;
         this.local = local;
         this.pets = pets;
+        this.criadorId = criadorId;
         this.horario = new Horario(dataAgendamento, duracao);
         this.preco = calcularPrecoDoPasseio();
+    }
+
+    private boolean isDataCadastroValida(LocalDateTime dataAgendamento) {
+        return LocalDateTime.now().isBefore(dataAgendamento);
     }
 
     private BigDecimal calcularPrecoDoPasseio() {
@@ -67,5 +75,13 @@ public class Passeio {
 
     public void setCuidador(Cuidador cuidador) {
         this.cuidador = cuidador;
+    }
+
+    public void setCriadorId(String criadorId) {
+        this.criadorId = criadorId;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

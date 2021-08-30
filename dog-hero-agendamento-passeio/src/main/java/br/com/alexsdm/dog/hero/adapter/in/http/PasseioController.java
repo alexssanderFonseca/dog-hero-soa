@@ -28,19 +28,20 @@ public class PasseioController {
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroPasseioInputDTO cadastroPasseioInputDTO, UriComponentsBuilder uriBuilder) {
         var cadastroPasseioOutputDTO = this.cadastraPasseio.executar(cadastroPasseioInputDTO);
-        var uri = uriBuilder.path("/{id}").buildAndExpand(cadastroPasseioOutputDTO.getId()).toUri();
+        var uri = uriBuilder.path("passeios/{idCriador}/{idPasseio}")
+                .buildAndExpand(cadastroPasseioOutputDTO.getCriadorId(), cadastroPasseioOutputDTO.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @PatchMapping("/{id}/cancelar")
-    public ResponseEntity<?> cancelar(@PathVariable String id) {
-        this.cancelaPasseio.executar(id);
+    @PatchMapping("/{idCriador}/{idPasseio}/cancelar")
+    public ResponseEntity<?> cancelar(@PathVariable String idCriador, @PathVariable String idPasseio) {
+        this.cancelaPasseio.executar(idCriador, idPasseio);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable String id) {
-        var passeioDTO = visualizaPasseio.executar(id);
+    @GetMapping("/{idCriador}/{idPasseio}")
+    public ResponseEntity<?> buscarPorId(@PathVariable String idCriador, @PathVariable String idPasseio) {
+        var passeioDTO = visualizaPasseio.executar(idCriador, idPasseio);
         return ResponseEntity.ok(passeioDTO);
     }
 }

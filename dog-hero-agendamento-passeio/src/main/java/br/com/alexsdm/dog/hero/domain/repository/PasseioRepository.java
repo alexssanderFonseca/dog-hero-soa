@@ -7,7 +7,7 @@ public interface PasseioRepository {
 
     Passeio salvar(Passeio passeio);
 
-    Optional<Passeio> buscarPeloId(String id);
+    Optional<Passeio> buscarPeloId(String idCriador, String idPasseio);
 
     void atualizarPasseio(Passeio passeio);
 }

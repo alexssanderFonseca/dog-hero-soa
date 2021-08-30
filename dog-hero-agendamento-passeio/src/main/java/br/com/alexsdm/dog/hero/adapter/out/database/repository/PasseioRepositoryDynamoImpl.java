@@ -19,28 +19,20 @@ public class PasseioRepositoryDynamoImpl implements PasseioRepository {
     @Override
     public Passeio salvar(Passeio passeio) {
         var passeioItem = passeioItemMapper.dePasseio(passeio);
-        try {
-            dynamoDBMapper.save(passeioItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        dynamoDBMapper.save(passeioItem);
         return passeioItemMapper.paraPasseio(passeioItem);
     }
 
     @Override
-    public Optional<Passeio> buscarPeloId(String id) {
-        var passeioItem = dynamoDBMapper.load(PasseioItem.class, id);
+    public Optional<Passeio> buscarPeloId(String idCriador, String idPasseio) {
+        var passeioItem = dynamoDBMapper.load(PasseioItem.class, idCriador, idPasseio);
         return passeioItem == null ? Optional.empty() : Optional.of(passeioItemMapper.paraPasseio(passeioItem));
     }
 
     @Override
     public void atualizarPasseio(Passeio passeio) {
         var passeioItem = passeioItemMapper.dePasseio(passeio);
-        try {
-            dynamoDBMapper.save(passeioItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        dynamoDBMapper.save(passeioItem);
     }
 
 

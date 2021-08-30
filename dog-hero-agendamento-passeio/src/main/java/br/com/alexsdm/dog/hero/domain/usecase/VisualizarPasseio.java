@@ -13,8 +13,8 @@ public class VisualizarPasseio {
 
     private final PasseioRepository passeioRepository;
 
-    public PasseioDTO executar(String id) {
-        var passeio = passeioRepository.buscarPeloId(id)
+    public PasseioDTO executar(String idCriador, String idPasseio) {
+        var passeio = passeioRepository.buscarPeloId(idCriador,idPasseio )
                 .orElseThrow(() -> new BusinessException("O passeio informado não foi encontrado"));
         return PasseioMapper.INSTANCIA.paraPasseioDTO(passeio);
     }

@@ -13,24 +13,26 @@ class VisualizarPasseioSpecification extends Specification {
 
     def "Deve retornar dados de visualizacao do passeio"() {
         given:
+        def idCriador = UUID.randomUUID().toString();
         def idPasseio = UUID.randomUUID().toString();
         def visualizarPasseio = new VisualizarPasseio(passeioRepository);
         def pet = cria(List.of("pet1"), Duracao.SESSENTA);
         when:
-        visualizarPasseio.executar(idPasseio);
+        visualizarPasseio.executar(idCriador, idPasseio);
         then:
-        1 * passeioRepository.buscarPeloId(idPasseio) >> Optional.of(pet);;
+        1 * passeioRepository.buscarPeloId(idCriador, idPasseio) >> Optional.of(pet); ;
 
     }
 
     def "Deve lancar exception caso passeio nao exista"() {
         given:
+        def idCriador = UUID.randomUUID().toString();
         def idPasseio = UUID.randomUUID().toString();
         def visualizarPasseio = new VisualizarPasseio(passeioRepository);
         when:
-        visualizarPasseio.executar(idPasseio);
+        visualizarPasseio.executar(idCriador, idPasseio);
         then:
-        1 * passeioRepository.buscarPeloId(idPasseio) >> Optional.empty();;
+        1 * passeioRepository.buscarPeloId(idCriador, idPasseio) >> Optional.empty(); ;
         var erro = thrown(BusinessException);
         erro.getMessage() == "O passeio informado não foi encontrado";
 

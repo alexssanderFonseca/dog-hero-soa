@@ -27,7 +27,7 @@ public class Passeio {
                    List<String> pets, String criadorId) {
         this.status = Status.AGENDADO;
         if (!isDataCadastroValida(dataAgendamento)) {
-            throw new BusinessException("Passeio não pode ser cadastrado com uma data no passado");
+            throw new BusinessException("O passeio não pode ser cadastrado com uma data no passado");
         }
         this.dataAgendamento = dataAgendamento;
         this.duracao = duracao;

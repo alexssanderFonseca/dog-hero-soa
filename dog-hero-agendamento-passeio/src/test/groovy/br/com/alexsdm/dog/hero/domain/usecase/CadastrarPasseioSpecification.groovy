@@ -22,7 +22,7 @@ class CadastrarPasseioSpecification extends Specification {
         pets.add("pet3");
         def cadastroPasseioInputDTO = CadastroPasseioInputDTO.builder()
                 .duracao("30")
-                .dataAgendamento(LocalDateTime.now())
+                .dataAgendamento(LocalDateTime.now().plusDays(5))
                 .latidude("123")
                 .longitude("1234")
                 .pets(pets)

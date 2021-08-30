@@ -5,12 +5,14 @@ import br.com.alexsdm.dog.hero.domain.entity.Local
 import br.com.alexsdm.dog.hero.domain.entity.Passeio
 import br.com.alexsdm.dog.hero.domain.entity.Status
 import br.com.alexsdm.dog.hero.domain.exception.BusinessException
-import  static br.com.alexsdm.dog.hero.factory.PasseioMockFactory.cria
+
+import java.time.LocalDate
+
+import static br.com.alexsdm.dog.hero.factory.PasseioMockFactory.cria
 import spock.lang.Specification
 
 import java.time.LocalDateTime
 import java.time.Month
-
 
 
 class PasseioSpecification extends Specification {
@@ -64,9 +66,9 @@ class PasseioSpecification extends Specification {
 
     def "Nao deve cancelar passeio caso tenha passado do prazo limite"() {
         given:
-        def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, 26, 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"));
+        def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, 26, 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"), "12345");
         when:
-        passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, 26, 14, 0));
+        passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, getDiaAgendamentoValido(), 14, 0));
         then:
         def erro = thrown(BusinessException);
         erro.getMessage() == "O passeio não pode ser cancelado após o prazo de antecedência";
@@ -75,16 +77,16 @@ class PasseioSpecification extends Specification {
 
     def "Deve cancelar passeio caso esteja dentro do prazo limite"() {
         given:
-        def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, 26, 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"));
+        def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, getDiaAgendamentoValido(), 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"), "12345");
         when:
         passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, 26, 12, 0));
         then:
         passeio.status == Status.CANCELADO
     }
 
-    def "Nao deve cancelar passeio caso ja tenha passado a hora da data agendamento"() {
+    def "Nao deve cancelar passeio caso ja tenha passado a hora do agendamento"() {
         given:
-        def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, 26, 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"));
+        def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, 26, 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"), "12345");
         when:
         passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, 26, 17, 0, 1));
         then:
@@ -92,6 +94,19 @@ class PasseioSpecification extends Specification {
         erro.getMessage() == "O passeio não pode ser cancelado após o prazo de antecedência";
     }
 
+    def "Nao deve criar passeio caso data de agendamento esteja no passado"() {
+        given:
+        def passeio;
+        when:
+        passeio = new Passeio(LocalDateTime.now().minusDays(1), Duracao.TRINTA, new Local("", ""), List.of("pet1"), "12345");
+        then:
+        def erro = thrown(BusinessException);
+        erro.getMessage() == "O passeio não pode ser cadastrado com uma data no passado";
+    }
+
+    private int getDiaAgendamentoValido() {
+        return LocalDate.now().plusDays(1).getDayOfMonth();
+    }
 
 
 }

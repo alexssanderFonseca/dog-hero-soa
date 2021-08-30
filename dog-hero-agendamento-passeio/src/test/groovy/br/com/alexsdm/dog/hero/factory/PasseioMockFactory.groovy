@@ -11,11 +11,11 @@ import java.time.LocalDateTime
 class PasseioMockFactory {
 
     static Passeio cria(List<String> petsId, Duracao duracao) {
-        return new Passeio(LocalDateTime.now(), duracao, new Local("", ""), petsId);
+        return new Passeio(LocalDateTime.now().plusDays(5), duracao, new Local("", ""), petsId, "12345");
     }
 
     static Passeio cria() {
-        return new Passeio(LocalDateTime.now(), Duracao.SESSENTA, new Local("", ""), List.of("pets1"));
+        return new Passeio(LocalDateTime.now().plusDays(5), Duracao.SESSENTA, new Local("", ""), List.of("pets1"), "12345");
     }
 
     static PasseioDTO criaDTO(){

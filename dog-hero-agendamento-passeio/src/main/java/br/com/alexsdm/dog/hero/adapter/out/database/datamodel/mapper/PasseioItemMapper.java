@@ -26,6 +26,9 @@ public abstract class PasseioItemMapper {
     @Mapping(source = "idPasseio", target = "id")
     public abstract Passeio paraPasseio(PasseioItem passeioItem);
 
+    @Mapping(source = "idPasseio", target = "id")
+    public abstract List<Passeio> paraPasseio(List<PasseioItem> passeioItem);
+
     public String paraLocalJson(Local local) throws JsonProcessingException {
         return objectMapper.writeValueAsString(local);
     }

@@ -12,8 +12,8 @@ public class CancelarPasseio {
 
     private final PasseioRepository passeioRepository;
 
-    public void executar(String idCriador, String idPasseio) {
-        var passeio = passeioRepository.buscarPeloId(idCriador,idPasseio).
+    public void executar(String idPasseio, String idUsuario) {
+        var passeio = passeioRepository.buscarPeloId(idUsuario, idPasseio).
                 orElseThrow(() -> new BusinessException("O passeio informado não foi encontrado"));
         passeio.cancelar(LocalDateTime.now());
         passeioRepository.atualizarPasseio(passeio);

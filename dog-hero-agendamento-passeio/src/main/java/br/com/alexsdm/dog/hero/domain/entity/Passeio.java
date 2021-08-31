@@ -11,7 +11,7 @@ import lombok.Getter;
 public class Passeio {
 
     private String id;
-    private String criadorId;
+    private String usuarioId;
     private Status status;
     private final LocalDateTime dataAgendamento;
     private final Duracao duracao;
@@ -24,7 +24,7 @@ public class Passeio {
     private static final int PRAZO_LIMITE_CANCELAMENTO = 5;
 
     public Passeio(LocalDateTime dataAgendamento, Duracao duracao, Local local,
-                   List<String> pets, String criadorId) {
+                   List<String> pets, String usuarioId) {
         this.status = Status.AGENDADO;
         if (!isDataCadastroValida(dataAgendamento)) {
             throw new BusinessException("O passeio não pode ser cadastrado com uma data no passado");
@@ -33,7 +33,7 @@ public class Passeio {
         this.duracao = duracao;
         this.local = local;
         this.pets = pets;
-        this.criadorId = criadorId;
+        this.usuarioId = usuarioId;
         this.horario = new Horario(dataAgendamento, duracao);
         this.preco = calcularPrecoDoPasseio();
     }
@@ -77,8 +77,8 @@ public class Passeio {
         this.cuidador = cuidador;
     }
 
-    public void setCriadorId(String criadorId) {
-        this.criadorId = criadorId;
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public void setId(String id) {

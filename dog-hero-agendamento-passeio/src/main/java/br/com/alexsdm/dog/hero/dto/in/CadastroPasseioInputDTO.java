@@ -25,7 +25,8 @@ public class CadastroPasseioInputDTO {
     @Future
     private LocalDateTime dataAgendamento;
 
-    private String criadorId;
+    @NotBlank
+    private String usuarioId;
 
     @NotBlank
     private String latidude;

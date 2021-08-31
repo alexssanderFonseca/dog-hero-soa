@@ -3,6 +3,7 @@ package br.com.alexsdm.dog.hero.adapter.in.http;
 import br.com.alexsdm.dog.hero.domain.usecase.CadastrarPasseio;
 import br.com.alexsdm.dog.hero.domain.usecase.CancelarPasseio;
 import br.com.alexsdm.dog.hero.domain.usecase.VisualizarPasseio;
+import br.com.alexsdm.dog.hero.domain.usecase.VisualizarTodosPasseioDoUsuario;
 import br.com.alexsdm.dog.hero.dto.in.CadastroPasseioInputDTO;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,24 +25,31 @@ public class PasseioController {
     private final CadastrarPasseio cadastraPasseio;
     private final CancelarPasseio cancelaPasseio;
     private final VisualizarPasseio visualizaPasseio;
+    private final VisualizarTodosPasseioDoUsuario visualizarTodosPasseioDoUsuario;
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroPasseioInputDTO cadastroPasseioInputDTO, UriComponentsBuilder uriBuilder) {
         var cadastroPasseioOutputDTO = this.cadastraPasseio.executar(cadastroPasseioInputDTO);
-        var uri = uriBuilder.path("passeios/{idCriador}/{idPasseio}")
-                .buildAndExpand(cadastroPasseioOutputDTO.getCriadorId(), cadastroPasseioOutputDTO.getId()).toUri();
+        var uri = uriBuilder.path("passeios/{idPasseio}/usuarios/{idUsuario}")
+                .buildAndExpand(cadastroPasseioOutputDTO.getId(), cadastroPasseioOutputDTO.getUsuarioId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @PatchMapping("/{idCriador}/{idPasseio}/cancelar")
-    public ResponseEntity<?> cancelar(@PathVariable String idCriador, @PathVariable String idPasseio) {
-        this.cancelaPasseio.executar(idCriador, idPasseio);
+    @PatchMapping("/{idPasseio}/usuarios/{idUsuario}/cancelar")
+    public ResponseEntity<?> cancelar(@PathVariable String idPasseio, @PathVariable String idUsuario) {
+        this.cancelaPasseio.executar(idUsuario, idPasseio);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{idCriador}/{idPasseio}")
-    public ResponseEntity<?> buscarPorId(@PathVariable String idCriador, @PathVariable String idPasseio) {
-        var passeioDTO = visualizaPasseio.executar(idCriador, idPasseio);
+    @GetMapping("/{idPasseio}/usuarios/{idUsuario}")
+    public ResponseEntity<?> buscarPorId(@PathVariable String idPasseio, @PathVariable String idUsuario) {
+        var passeioDTO = visualizaPasseio.executar(idPasseio, idUsuario);
+        return ResponseEntity.ok(passeioDTO);
+    }
+
+    @GetMapping("usuarios/{idUsuario}")
+    public ResponseEntity<?> buscarTodosDoUsuario(@PathVariable String idUsuario) {
+        var passeioDTO = visualizarTodosPasseioDoUsuario.executar(idUsuario);
         return ResponseEntity.ok(passeioDTO);
     }
 }

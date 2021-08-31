@@ -4,6 +4,7 @@ package br.com.alexsdm.dog.hero.adapter.in.http
 import br.com.alexsdm.dog.hero.domain.usecase.CadastrarPasseio
 import br.com.alexsdm.dog.hero.domain.usecase.CancelarPasseio
 import br.com.alexsdm.dog.hero.domain.usecase.VisualizarPasseio
+import br.com.alexsdm.dog.hero.domain.usecase.VisualizarTodosPasseioDoUsuario
 import br.com.alexsdm.dog.hero.dto.in.CadastroPasseioInputDTO
 import br.com.alexsdm.dog.hero.dto.out.PasseioCadastradoDTO
 import br.com.alexsdm.dog.hero.factory.PasseioMockFactory
@@ -43,6 +44,9 @@ class PasseioControllerSpecification extends Specification {
     @SpringBean
     VisualizarPasseio encontrarPasseio = Mock(VisualizarPasseio);
 
+    @SpringBean
+    VisualizarTodosPasseioDoUsuario visualizarTodosPasseioDoUsuario = Mock(VisualizarTodosPasseioDoUsuario)
+
 
     def "Deve retornar 201 ao cadastrar um passeio com header location"() {
         given:
@@ -65,21 +69,21 @@ class PasseioControllerSpecification extends Specification {
 
     def "Deve retornar 204 ao cancelar passeio"() {
         given:
-        def idCriador = UUID.randomUUID().toString();
+        def idUsuario = UUID.randomUUID().toString();
         def idPasseio = UUID.randomUUID().toString();
         expect:
-        mvc.perform(patch("/passeios/${idCriador}/${idPasseio}/cancelar"))
+        mvc.perform(patch("/passeios//${idPasseio}/usuarios/${idUsuario}/cancelar"))
                 .andExpect(status().isNoContent())
     }
 
     def "Deve retonar 200 e o passeio encontrado no corpo da requisicao"() {
         given:
         def passeioDTO = PasseioMockFactory.criaDTO()
-        def idCriador = UUID.randomUUID().toString();
+        def idUsuario = UUID.randomUUID().toString();
         def idPasseio = UUID.randomUUID().toString();
-        encontrarPasseio.executar(idCriador, idPasseio) >> passeioDTO;
+        encontrarPasseio.executar(idPasseio, idUsuario) >> passeioDTO;
         expect:
-        mvc.perform(get("/passeios/${idCriador}/${idPasseio}"))
+        mvc.perform(get("/passeios/${idPasseio}/usuarios/${idUsuario}"))
                 .andExpect(status().isOk())
                 .andReturn();
 

@@ -13,6 +13,6 @@ public class PasseioFactory {
     public static Passeio build(CadastroPasseioInputDTO cadastroPasseioInputDTO) {
         var duracao = Duracao.getByTempo(cadastroPasseioInputDTO.getDuracao());
         return new Passeio(cadastroPasseioInputDTO.getDataAgendamento(), duracao, new Local(cadastroPasseioInputDTO.getLatidude(),
-                cadastroPasseioInputDTO.getLongitude()), cadastroPasseioInputDTO.getPets(), cadastroPasseioInputDTO.getCriadorId());
+                cadastroPasseioInputDTO.getLongitude()), cadastroPasseioInputDTO.getPets(), cadastroPasseioInputDTO.getUsuarioId());
     }
 }

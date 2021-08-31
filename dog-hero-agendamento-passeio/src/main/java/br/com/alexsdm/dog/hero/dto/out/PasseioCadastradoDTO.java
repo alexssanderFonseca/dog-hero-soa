@@ -13,7 +13,7 @@ public class PasseioCadastradoDTO {
 
     private String id;
 
-    private String criadorId;
+    private String usuarioId;
 
     private LocalDateTime dataAgendamento;
 

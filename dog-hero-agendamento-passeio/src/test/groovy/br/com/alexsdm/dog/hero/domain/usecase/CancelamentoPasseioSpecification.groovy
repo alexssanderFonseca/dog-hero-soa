@@ -13,24 +13,24 @@ class CancelamentoPasseioSpecification extends Specification {
 
     def "Deve cancelar passeio"() {
         given:
-        def idCriador = UUID.randomUUID().toString();
+        def idUsuario = UUID.randomUUID().toString();
         def idPasseio = UUID.randomUUID().toString();
         def cancelamentoPasseio = new CancelarPasseio(passeioRepository);
         when:
-        cancelamentoPasseio.executar(idCriador,idPasseio);
+        cancelamentoPasseio.executar(idPasseio, idUsuario);
         then:
-        1 * passeioRepository.buscarPeloId(idCriador,idPasseio) >> Optional.of(passeio)
+        1 * passeioRepository.buscarPeloId(idUsuario, idPasseio) >> Optional.of(passeio)
         1 * passeioRepository.atualizarPasseio(passeio)
     }
 
     def "Deve falhar caso nao encontre o passeio"() {
         given:
-        def idCriador = UUID.randomUUID().toString();
+        def idUsuario = UUID.randomUUID().toString();
         def idPasseio = UUID.randomUUID().toString();
         def cancelamentoPasseio = new CancelarPasseio(passeioRepository);
         when:
-        passeioRepository.buscarPeloId(idCriador, idPasseio) >> Optional.empty();
-        cancelamentoPasseio.executar(idCriador, idPasseio);
+        passeioRepository.buscarPeloId(idPasseio, idUsuario) >> Optional.empty();
+        cancelamentoPasseio.executar(idUsuario, idPasseio);
         then:
         def erro = thrown(BusinessException);
         erro.getMessage() == "O passeio informado não foi encontrado"

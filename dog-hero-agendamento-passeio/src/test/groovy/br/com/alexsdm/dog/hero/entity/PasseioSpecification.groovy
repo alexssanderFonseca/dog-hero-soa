@@ -68,7 +68,7 @@ class PasseioSpecification extends Specification {
         given:
         def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, 26, 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"), "12345");
         when:
-        passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, getDiaAgendamentoValido(), 14, 0));
+        passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, 26, 14, 0));
         then:
         def erro = thrown(BusinessException);
         erro.getMessage() == "O passeio não pode ser cancelado após o prazo de antecedência";
@@ -79,7 +79,7 @@ class PasseioSpecification extends Specification {
         given:
         def passeio = new Passeio(LocalDateTime.of(2021, Month.OCTOBER, getDiaAgendamentoValido(), 17, 0), Duracao.TRINTA, new Local("", ""), List.of("pet1"), "12345");
         when:
-        passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, 26, 12, 0));
+        passeio.cancelar(LocalDateTime.of(2021, Month.OCTOBER, LocalDateTime.now().getDayOfMonth(), 12, 0));
         then:
         passeio.status == Status.CANCELADO
     }

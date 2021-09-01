@@ -76,7 +76,7 @@ class PasseioControllerSpecification extends Specification {
                 .andExpect(status().isNoContent())
     }
 
-    def "Deve retonar 200 e o passeio encontrado no corpo da requisicao"() {
+    def "Deve retonar 200 ao visualizar passeio"() {
         given:
         def passeioDTO = PasseioMockFactory.criaDTO()
         def idUsuario = UUID.randomUUID().toString();
@@ -87,6 +87,16 @@ class PasseioControllerSpecification extends Specification {
                 .andExpect(status().isOk())
                 .andReturn();
 
+    }
+
+    def "Deve retornar 200 ao visualizar todos os passeios de um usuario"() {
+        given:
+        def idUsuario = UUID.randomUUID().toString();
+        visualizarTodosPasseioDoUsuario.executar(idUsuario) >> Arrays.asList(PasseioMockFactory.criaDTO(), PasseioMockFactory.criaDTO());
+        expect:
+        mvc.perform(get("/passeios/usuarios/${idUsuario}"))
+                .andExpect(status().isOk())
+                .andReturn();
     }
 
     private PasseioCadastradoDTO getPasseioCadastrado() {

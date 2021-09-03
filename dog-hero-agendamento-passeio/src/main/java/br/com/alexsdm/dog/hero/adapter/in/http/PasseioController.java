@@ -25,7 +25,6 @@ public class PasseioController {
     private final CadastrarPasseio cadastraPasseio;
     private final CancelarPasseio cancelaPasseio;
     private final VisualizarPasseio visualizaPasseio;
-    private final VisualizarTodosPasseioDoUsuario visualizarTodosPasseioDoUsuario;
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroPasseioInputDTO cadastroPasseioInputDTO, UriComponentsBuilder uriBuilder) {
@@ -47,9 +46,5 @@ public class PasseioController {
         return ResponseEntity.ok(passeioDTO);
     }
 
-    @GetMapping("usuarios/{idUsuario}")
-    public ResponseEntity<?> buscarTodosDoUsuario(@PathVariable String idUsuario) {
-        var passeioDTO = visualizarTodosPasseioDoUsuario.executar(idUsuario);
-        return ResponseEntity.ok(passeioDTO);
-    }
+
 }

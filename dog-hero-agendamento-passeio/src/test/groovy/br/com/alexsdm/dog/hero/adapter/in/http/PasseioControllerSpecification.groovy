@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @AutoConfigureMockMvc
-@WebMvcTest
+@WebMvcTest(PasseioController.class)
 class PasseioControllerSpecification extends Specification {
 
     @Autowired
@@ -86,18 +86,8 @@ class PasseioControllerSpecification extends Specification {
         mvc.perform(get("/passeios/${idPasseio}/usuarios/${idUsuario}"))
                 .andExpect(status().isOk())
                 .andReturn();
-
     }
 
-    def "Deve retornar 200 ao visualizar todos os passeios de um usuario"() {
-        given:
-        def idUsuario = UUID.randomUUID().toString();
-        visualizarTodosPasseioDoUsuario.executar(idUsuario) >> Arrays.asList(PasseioMockFactory.criaDTO(), PasseioMockFactory.criaDTO());
-        expect:
-        mvc.perform(get("/passeios/usuarios/${idUsuario}"))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
 
     private PasseioCadastradoDTO getPasseioCadastrado() {
         return new PasseioCadastradoDTO(UUID.randomUUID().toString(), "12345", LocalDateTime.now(), "xxxxxxx", "xxxxxx", "30", List.of("pet1"));

@@ -3,7 +3,6 @@ package br.com.alexsdm.dog.hero.adapter.in.http;
 import br.com.alexsdm.dog.hero.domain.usecase.CadastrarPasseio;
 import br.com.alexsdm.dog.hero.domain.usecase.CancelarPasseio;
 import br.com.alexsdm.dog.hero.domain.usecase.VisualizarPasseio;
-import br.com.alexsdm.dog.hero.domain.usecase.VisualizarTodosPasseioDoUsuario;
 import br.com.alexsdm.dog.hero.dto.in.CadastroPasseioInputDTO;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
